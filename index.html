@@ -18,8 +18,8 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            touch-action: manipulation; /* Prevent zoom on double-tap */
-            -webkit-user-select: none; /* Prevent text selection on mobile */
+            touch-action: manipulation;
+            -webkit-user-select: none;
             user-select: none;
         }
 
@@ -145,7 +145,6 @@
             font-size: 14px;
         }
 
-        /* Game Container (hidden initially) */
         #game-container {
             display: none;
             border-radius: 10px;
@@ -159,7 +158,6 @@
             display: block;
         }
 
-        /* Mobile optimizations */
         @media (max-width: 850px) {
             #game-container {
                 border-radius: 0;
@@ -177,7 +175,6 @@
             }
         }
 
-        /* Math Problem Modal */
         .math-modal {
             display: none;
             position: fixed;
@@ -265,7 +262,6 @@
             display: block;
         }
 
-        /* Game HUD */
         .game-hud {
             position: fixed;
             top: 10px;
@@ -302,7 +298,6 @@
         .hud-score { color: #a8e6cf; }
         .hud-noise { color: #ffaa00; }
 
-        /* Game Over Modal */
         .game-over-modal {
             display: none;
             position: fixed;
@@ -364,55 +359,6 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        /* Mobile Cancel Button */
-        .cancel-placement-btn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 200;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-            font-weight: bold;
-        }
-
-        .cancel-placement-btn.active {
-            display: block;
-            animation: slideUp 0.3s ease;
-        }
-
-        /* Mobile Confirm Button */
-        .confirm-placement-btn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 200;
-            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
-            font-weight: bold;
-        }
-
-        .confirm-placement-btn.active {
-            display: block;
-            animation: slideUp 0.3s ease;
-        }
-
-        /* Button container for placement controls */
         .placement-controls {
             display: none;
             position: fixed;
@@ -451,7 +397,6 @@
             transform: scale(0.95);
         }
 
-        /* Tower Sell Modal */
         .sell-tower-modal {
             display: none;
             position: fixed;
@@ -510,26 +455,26 @@
             color: white;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translate(-50%, 20px);
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 0 rgba(255, 0, 0, 0);
             }
-            to {
-                opacity: 1;
-                transform: translate(-50%, 0);
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
             }
-        }
-
-        .cancel-placement-btn:active {
-            transform: translateX(-50%) scale(0.95);
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 0 rgba(255, 0, 0, 0);
+            }
         }
     </style>
 </head>
 <body>
     <!-- Main Menu -->
     <div class="menu-container" id="mainMenu">
-        <h1 class="game-title">🏰 Math Tower Defense</h1>
+        <h1 class="game-title">🎯 Math Tower Defense</h1>
         <p class="game-subtitle">Defend your base by solving math problems!</p>
 
         <div class="menu-section">
@@ -554,17 +499,11 @@
         <div class="instructions">
             <h3>How to Play</h3>
             <ul>
-                <li><strong>Earn Gold:</strong> Solve math (Easy: 50g, Normal: 75g, Hard: 100g) + Kill enemies (10-100g) + Complete waves (100g)</li>
-                <li><strong>Place Towers:</strong> Tap tower button → Position on map → Tap ✅ Confirm → Solve math (costs: Basic 100g, Math Archer 150g, Support 200g)</li>
-                <li><strong>Enemy Types:</strong> 🟢 Basic (slow), 🟡 Fast (quick but weak), 🔴 Tank (tough), 👑 Boss (every 5 waves)</li>
-                <li><strong>Noise Meter:</strong> ⚠️ Auto-fire towers add noise (3%/5%/8% per tower on Easy/Normal/Hard). At 50%+ noise, shots start missing!</li>
-                <li><strong>Placement:</strong> After selecting a tower, tap to position → Tap ✅ Confirm (or press Enter on PC) to solve math and place, or ❌ Cancel (C/ESC) to cancel</li>
-                <li><strong>Basic Tower:</strong> Fires automatically (no math required)</li>
-                <li><strong>Math Towers:</strong> Glow yellow when ready - click them to solve math and fire!</li>
-                <li><strong>Sell Towers:</strong> Tap any tower (that's not ready to fire) to sell it back for 50% of its cost</li>
-                <li><strong>Bosses:</strong> 👑 Powerful enemies appear every 5 waves!</li>
-                <li><strong>Support Aura:</strong> Unlock by solving 10+ problems on Easy - Makes nearby math towers auto-fire at bosses!</li>
-                <li><strong>Defend:</strong> Stop enemies from reaching your base!</li>
+                <li><strong>Earn Gold:</strong> Solve math + Kill enemies + Complete waves</li>
+                <li><strong>Place Towers:</strong> Click tower button → Position → Confirm → Solve math</li>
+                <li><strong>Noise Meter:</strong> ⚠️ Auto-fire towers add noise. At 50%+ shots start missing!</li>
+                <li><strong>Math Towers:</strong> Glow yellow when ready - click to solve math and fire!</li>
+                <li><strong>Sell Towers:</strong> Click any tower to sell for 50% refund</li>
             </ul>
         </div>
 
@@ -625,12 +564,7 @@
         <button class="restart-btn" onclick="restartGame()">Play Again</button>
     </div>
 
-    <!-- Cancel Tower Placement Button (Mobile) -->
-    <button class="cancel-placement-btn" id="cancelPlacementBtn" onclick="cancelTowerPlacement()">
-        ❌ Cancel Tower
-    </button>
-
-    <!-- Placement Controls (Mobile) -->
+    <!-- Placement Controls -->
     <div class="placement-controls" id="placementControls">
         <button class="confirm-btn" onclick="confirmTowerPlacement()">
             ✅ Confirm
@@ -659,15 +593,12 @@
     
     <!-- Shared variables -->
     <script>
-        // Game settings
         let selectedDifficulty = 'normal';
         let gameStarted = false;
 
-        // Difficulty selection
         function selectDifficulty(difficulty) {
             selectedDifficulty = difficulty;
             
-            // Update button states
             document.querySelectorAll('.difficulty-btn').forEach(btn => {
                 btn.classList.remove('selected');
                 if (btn.dataset.difficulty === difficulty) {
@@ -675,7 +606,6 @@
                 }
             });
             
-            // Update difficulty info
             const info = {
                 easy: '<p><strong>Easy:</strong> Addition & Subtraction only | 60 seconds per problem</p>',
                 normal: '<p><strong>Normal:</strong> Addition, Subtraction & Multiplication | 30 seconds per problem</p>',
@@ -685,22 +615,18 @@
             document.getElementById('difficultyInfo').innerHTML = info[difficulty];
         }
 
-        // Start the game
         function startGame() {
             if (gameStarted) return;
             gameStarted = true;
             
-            // Hide menu, show game
             document.getElementById('mainMenu').classList.add('hidden');
             document.getElementById('game-container').classList.add('active');
             document.getElementById('gameHud').classList.add('active');
             
-            // NOW create the Phaser game with the selected difficulty
-            console.log('Creating game with selected difficulty:', selectedDifficulty);
+            console.log('Creating game with difficulty:', selectedDifficulty);
             game = new Phaser.Game(config);
         }
 
-        // Math modal functions
         let currentMathCallback = null;
         let mathTimer = null;
         let timeLeft = 10;
@@ -718,7 +644,6 @@
             
             document.getElementById('mathInput').focus();
             
-            // Start timer
             mathTimer = setInterval(() => {
                 timeLeft--;
                 document.getElementById('mathTimer').textContent = timeLeft + 's';
@@ -748,7 +673,6 @@
             }
         }
 
-        // Allow Enter key to submit
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mathInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -757,50 +681,39 @@
             });
         });
 
-        // Update HUD
         function updateHUD(gold, health, wave, score, noise) {
             document.getElementById('hudGold').textContent = gold;
             document.getElementById('hudHealth').textContent = health;
             document.getElementById('hudWave').textContent = wave;
             document.getElementById('hudScore').textContent = score;
             
-            // Update noise meter with color coding
             const noiseElement = document.getElementById('hudNoise');
-            noiseElement.textContent = Math.round(noise) + '%';
             
-            // Change color based on noise level
             if (noise >= 50) {
-                noiseElement.style.color = '#ff0000'; // Red when affecting accuracy
+                noiseElement.textContent = Math.round(noise) + '% ⚠️';
+                noiseElement.style.color = '#ff0000';
+                noiseElement.style.animation = 'pulse 1s infinite';
             } else if (noise >= 35) {
-                noiseElement.style.color = '#ff9900'; // Orange as warning
+                noiseElement.textContent = Math.round(noise) + '%';
+                noiseElement.style.color = '#ff9900';
+                noiseElement.style.animation = 'none';
             } else {
-                noiseElement.style.color = '#00ff00'; // Green when safe
+                noiseElement.textContent = Math.round(noise) + '%';
+                noiseElement.style.color = '#00ff00';
+                noiseElement.style.animation = 'none';
             }
         }
 
-        function showHUD() {
-            document.getElementById('gameHud').classList.add('active');
-        }
-
-        function hideHUD() {
-            document.getElementById('gameHud').classList.remove('active');
-        }
-
-        // Restart game function
         function restartGame() {
-            // Hide game over modal
             document.getElementById('gameOverModal').classList.remove('active');
             document.getElementById('overlay').classList.remove('active');
             
-            // Destroy current game
             if (game) {
                 game.destroy(true);
             }
             
-            // Reset game started flag
             gameStarted = false;
             
-            // Show menu again
             document.getElementById('mainMenu').classList.remove('hidden');
             document.getElementById('game-container').classList.remove('active');
             document.getElementById('gameHud').classList.remove('active');
@@ -809,7 +722,6 @@
     
     <!-- Game Code -->
     <script>
-// Math Tower Defense - Game Code
 const config = {
     type: Phaser.AUTO,
     scale: {
@@ -827,12 +739,10 @@ const config = {
     }
 };
 
-// Game will be created when user clicks Start Game
 let game = null;
 
-// Game state
 let gameState = {
-    gold: 150,  // Starting gold for first tower
+    gold: 100,
     health: 100,
     wave: 0,
     score: 0,
@@ -848,7 +758,7 @@ let gameState = {
     enemiesSpawnedThisWave: 0,
     totalEnemiesToSpawn: 0,
     totalProblemsCompleted: 0,
-    noise: 0,  // Noise meter percentage (0-100)
+    noise: 0,
     path: [],
     unlockedTowers: ['basic', 'math-archer'],
     base: null,
@@ -859,15 +769,9 @@ let gameState = {
     },
     pendingPlacement: null,
     sellMode: false,
-    selectedTowerToSell: null,
-    mathProblemsCompleted: {
-        addition: 0,
-        multiplication: 0,
-        division: 0
-    }
+    selectedTowerToSell: null
 };
 
-// Tower types
 const TOWER_TYPES = {
     'basic': {
         name: 'Basic Tower',
@@ -904,135 +808,57 @@ const TOWER_TYPES = {
     }
 };
 
-// Enemy types
 const ENEMY_TYPES = {
-    'basic': { health: 30, speed: 50, gold: 10, color: 0x00ff00 },
-    'fast': { health: 20, speed: 80, gold: 15, color: 0xffff00 },
-    'tank': { health: 80, speed: 30, gold: 25, color: 0xff0000 },
-    'boss': { health: 200, speed: 25, gold: 100, color: 0xff00ff, isBoss: true }
+    'basic': { health: 30, baseSpeed: 50, gold: 10, color: 0x00ff00 },
+    'fast': { health: 20, baseSpeed: 80, gold: 15, color: 0xffff00 },
+    'tank': { health: 80, baseSpeed: 35, gold: 25, color: 0xff0000 },
+    'boss': { health: 200, baseSpeed: 35, gold: 100, color: 0xff00ff, isBoss: true }
 };
 
-function createEnemyAnimations(scene) {
-    // Create walking animations for each enemy type
-    // Only create if the texture exists (sprite loaded successfully)
-
-    if (scene.textures.exists('enemy_basic')) {
-        scene.anims.create({
-            key: 'enemy_basic_walk',
-            frames: scene.anims.generateFrameNumbers('enemy_basic', { start: 0, end: 3 }),
-            frameRate: 8,
-            repeat: -1
-        });
-    }
-
-    if (scene.textures.exists('enemy_fast')) {
-        scene.anims.create({
-            key: 'enemy_fast_walk',
-            frames: scene.anims.generateFrameNumbers('enemy_fast', { start: 0, end: 3 }),
-            frameRate: 12, // Faster animation for fast enemies
-            repeat: -1
-        });
-    }
-
-    if (scene.textures.exists('enemy_tank')) {
-        scene.anims.create({
-            key: 'enemy_tank_walk',
-            frames: scene.anims.generateFrameNumbers('enemy_tank', { start: 0, end: 3 }),
-            frameRate: 6, // Slower animation for tanks
-            repeat: -1
-        });
-    }
-
-    if (scene.textures.exists('enemy_boss')) {
-        scene.anims.create({
-            key: 'enemy_boss_walk',
-            frames: scene.anims.generateFrameNumbers('enemy_boss', { start: 0, end: 3 }),
-            frameRate: 6,
-            repeat: -1
-        });
-    }
-
-    console.log('Enemy animations created');
-}
-
-function createTowerAnimations(scene) {
-    // Create basic tower animations
-
-    // Idle animation (just use the single idle frame)
-    if (scene.textures.exists('tower_basic_idle')) {
-        console.log('✓ tower_basic_idle texture loaded');
-        scene.anims.create({
-            key: 'tower_basic_idle',
-            frames: [{ key: 'tower_basic_idle' }],
-            frameRate: 1,
-            repeat: -1
-        });
-    } else {
-        console.warn('✗ tower_basic_idle texture NOT found');
-    }
-
-    // Fire animation using spritesheet (19 frames, 32x32 each)
-    if (scene.textures.exists('tower_basic_shoot')) {
-        console.log('✓ tower_basic_shoot spritesheet loaded');
-        scene.anims.create({
-            key: 'tower_basic_shoot',
-            frames: scene.anims.generateFrameNumbers('tower_basic_shoot', { start: 0, end: 18 }), // 19 frames = 0 to 18
-            frameRate: 20, // 20 frames per second for smooth animation
-            repeat: 0 // Play once, then return to idle
-        });
-        console.log('Created fire animation with 19 frames from spritesheet');
-    } else {
-        console.warn('✗ tower_basic_shoot spritesheet NOT found');
-    }
-
-    console.log('Tower animations created');
-}
-
 function preload() {
-    // Load sprites from local sprites folder (or Vercel deployment)
-    // Make sure your sprites folder has these files:
-    // - BasicTowerIdle.png (single frame, 32x32)
-    // - BasicTowerShoot.png (spritesheet, 608x32, 19 frames)
+    console.log('🎨 Loading sprites...');
     
+    // ✅ LOAD YOUR SPRITES HERE
+    // Single idle image
     this.load.image('tower_basic_idle', 'sprites/BasicTowerIdle.png');
+    
+    // 19-frame spritesheet for firing animation
     this.load.spritesheet('tower_basic_shoot', 'sprites/BasicTowerShoot.png', { 
-        frameWidth: 32, 
-        frameHeight: 32 
+        frameWidth: 160, 
+        frameHeight: 128 
     });
-
-    // Load other tower sprites
+    
+    // Other tower sprites (using circle fallbacks for now)
     this.load.image('tower_math_archer', 'sprites/tower_math_archer.png');
     this.load.image('tower_support', 'sprites/tower_support.png');
-
-    // Load enemy sprite sheets (for animations) - 32x32 frames
+    
+    // Enemy sprites
     this.load.spritesheet('enemy_basic', 'sprites/enemy_basic.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('enemy_fast', 'sprites/enemy_fast.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('enemy_tank', 'sprites/enemy_tank.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('enemy_boss', 'sprites/enemy_boss.png', { frameWidth: 64, frameHeight: 64 });
-
-    // Load projectile sprite
+    
+    // Projectile
     this.load.image('projectile', 'sprites/projectile.png');
-
-    console.log('Loading sprites...');
-
-    // Add error handling for missing sprites
-    this.load.on('loaderror', function(file) {
-        console.warn('Failed to load:', file.key, '- Will use fallback graphics');
+    
+    // Log loading status
+    this.load.on('filecomplete', (key, type, data) => {
+        console.log('✅ Loaded:', key);
+    });
+    
+    this.load.on('loaderror', (file) => {
+        console.warn('⚠️ Failed to load:', file.key, '- Will use fallback graphics');
     });
 }
 
 function create() {
-    // Get difficulty from menu
     gameState.difficulty = selectedDifficulty;
     console.log('Game started with difficulty:', gameState.difficulty);
-
-    // Create enemy animations
-    createEnemyAnimations(this);
-
-    // Create tower animations
+    
+    // ✅ CREATE ANIMATIONS FOR BASIC TOWER
     createTowerAnimations(this);
-
-    // Create path
+    createEnemyAnimations(this);
+    
     gameState.path = [
         { x: -20, y: 300 },
         { x: 150, y: 300 },
@@ -1045,23 +871,85 @@ function create() {
         { x: 820, y: 250 }
     ];
     
-    // Draw background
     drawBackground(this);
-    
-    // Draw path
     drawPath(this);
-    
-    // Draw spawn and base
     drawSpawnAndBase(this);
-    
-    // Create UI
     createUI(this);
-    
-    // Setup input
     setupInput(this);
     
-    // Initialize HUD
     updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
+}
+
+function createTowerAnimations(scene) {
+    // ✅ IDLE ANIMATION - Uses single image
+    if (scene.textures.exists('tower_basic_idle')) {
+        console.log('✅ tower_basic_idle texture loaded');
+        scene.anims.create({
+            key: 'tower_basic_idle',
+            frames: [{ key: 'tower_basic_idle' }],
+            frameRate: 1,
+            repeat: -1
+        });
+    } else {
+        console.warn('❌ tower_basic_idle texture NOT found');
+    }
+    
+    // ✅ FIRE ANIMATION - Uses 19-frame spritesheet (frames 0-18)
+    if (scene.textures.exists('tower_basic_shoot')) {
+        console.log('✅ tower_basic_shoot spritesheet loaded');
+        scene.anims.create({
+            key: 'tower_basic_shoot',
+            frames: scene.anims.generateFrameNumbers('tower_basic_shoot', { 
+                start: 0, 
+                end: 18  // 19 frames (0-18)
+            }),
+            frameRate: 20,  // Adjust speed: 15-24 recommended
+            repeat: 0       // Play once per shot
+        });
+        console.log('✅ Created fire animation with 19 frames');
+    } else {
+        console.warn('❌ tower_basic_shoot spritesheet NOT found');
+    }
+    
+    console.log('Tower animations created');
+}
+
+function createEnemyAnimations(scene) {
+    if (scene.textures.exists('enemy_basic')) {
+        scene.anims.create({
+            key: 'enemy_basic_walk',
+            frames: scene.anims.generateFrameNumbers('enemy_basic', { start: 0, end: 3 }),
+            frameRate: 8,
+            repeat: -1
+        });
+    }
+    
+    if (scene.textures.exists('enemy_fast')) {
+        scene.anims.create({
+            key: 'enemy_fast_walk',
+            frames: scene.anims.generateFrameNumbers('enemy_fast', { start: 0, end: 3 }),
+            frameRate: 12,
+            repeat: -1
+        });
+    }
+    
+    if (scene.textures.exists('enemy_tank')) {
+        scene.anims.create({
+            key: 'enemy_tank_walk',
+            frames: scene.anims.generateFrameNumbers('enemy_tank', { start: 0, end: 3 }),
+            frameRate: 6,
+            repeat: -1
+        });
+    }
+    
+    if (scene.textures.exists('enemy_boss')) {
+        scene.anims.create({
+            key: 'enemy_boss_walk',
+            frames: scene.anims.generateFrameNumbers('enemy_boss', { start: 0, end: 3 }),
+            frameRate: 6,
+            repeat: -1
+        });
+    }
 }
 
 function drawBackground(scene) {
@@ -1069,7 +957,6 @@ function drawBackground(scene) {
     bg.fillStyle(0x4a7c59, 1);
     bg.fillRect(0, 0, 800, 600);
     
-    // Grass patches
     for (let i = 0; i < 20; i++) {
         const x = Math.random() * 800;
         const y = Math.random() * 600;
@@ -1082,7 +969,6 @@ function drawBackground(scene) {
 function drawPath(scene) {
     const graphics = scene.add.graphics();
     
-    // Path shadow
     graphics.lineStyle(44, 0x000000, 0.2);
     graphics.beginPath();
     for (let i = 0; i < gameState.path.length; i++) {
@@ -1095,7 +981,6 @@ function drawPath(scene) {
     }
     graphics.strokePath();
     
-    // Main path
     graphics.lineStyle(40, 0x8b7355, 1);
     graphics.beginPath();
     for (let i = 0; i < gameState.path.length; i++) {
@@ -1113,7 +998,6 @@ function drawSpawnAndBase(scene) {
     const spawnPoint = gameState.path[0];
     const basePoint = gameState.path[gameState.path.length - 1];
     
-    // Spawn portal
     const spawnGraphics = scene.add.graphics();
     spawnGraphics.fillStyle(0xff0000, 0.5);
     spawnGraphics.fillCircle(spawnPoint.x, spawnPoint.y, 35);
@@ -1128,7 +1012,6 @@ function drawSpawnAndBase(scene) {
         strokeThickness: 3
     }).setOrigin(0.5);
     
-    // Base
     const baseGraphics = scene.add.graphics();
     baseGraphics.fillStyle(0x8b8b8b, 1);
     baseGraphics.fillRect(basePoint.x - 30, basePoint.y - 40, 60, 80);
@@ -1143,54 +1026,12 @@ function drawSpawnAndBase(scene) {
         strokeThickness: 3
     }).setOrigin(0.5);
     
-    // Base health bar
     gameState.base = {
         x: basePoint.x,
         y: basePoint.y,
         healthBarBg: scene.add.rectangle(basePoint.x, basePoint.y + 55, 60, 8, 0x000000),
         healthBar: scene.add.rectangle(basePoint.x, basePoint.y + 55, 60, 8, 0x00ff00)
     };
-}
-
-function checkTowerUnlocks(scene) {
-    // Check if Support Aura should be unlocked
-    if (!gameState.unlockedTowers.includes('math-cannon')) {
-        const requirement = TOWER_TYPES['math-cannon'].unlockRequirement;
-        
-        if (gameState.difficulty === requirement.difficulty && 
-            gameState.totalProblemsCompleted >= requirement.problems) {
-            console.log('ðŸŽ‰ UNLOCKED: Support Aura tower!');
-            gameState.unlockedTowers.push('math-cannon');
-            
-            // Update the UI to show it's unlocked
-            if (scene && scene.towerButtons) {
-                updateTowerButtonUI(scene);
-            }
-        }
-    }
-}
-
-function updateTowerButtonUI(scene) {
-    // Update tower buttons to reflect unlocked state
-    for (const buttonData of scene.towerButtons) {
-        const key = buttonData.key;
-        const isUnlocked = gameState.unlockedTowers.includes(key);
-        
-        if (isUnlocked) {
-            buttonData.button.setFillStyle(0x4a4a4a);
-            buttonData.button.setStrokeStyle(2, 0xffffff);
-            buttonData.button.setInteractive({ useHandCursor: true });
-            buttonData.text.setText(TOWER_TYPES[key].name + '\n' + TOWER_TYPES[key].cost + 'g');
-            buttonData.text.setColor('#ffffff');
-            
-            // Add click handler if not already added
-            buttonData.button.removeAllListeners('pointerdown');
-            buttonData.button.on('pointerdown', () => {
-                console.log('Button clicked:', key);
-                selectTowerType(scene, key);
-            });
-        }
-    }
 }
 
 function createUI(scene) {
@@ -1218,7 +1059,6 @@ function createUI(scene) {
         
         if (isUnlocked) {
             button.on('pointerdown', () => {
-                console.log('Button clicked:', key);
                 selectTowerType(scene, key);
             });
         }
@@ -1227,7 +1067,6 @@ function createUI(scene) {
         yPos += 70;
     }
     
-    // Wave button
     const waveButton = scene.add.rectangle(720, 450, 140, 50, 0x00aa00);
     waveButton.setStrokeStyle(2, 0xffffff);
     waveButton.setInteractive({ useHandCursor: true });
@@ -1237,41 +1076,25 @@ function createUI(scene) {
     }).setOrigin(0.5);
     
     waveButton.on('pointerdown', () => {
-        console.log('Wave button clicked!');
-        console.log('waveInProgress:', gameState.waveInProgress);
-        console.log('gameOver:', gameState.gameOver);
-        
         if (!gameState.waveInProgress && !gameState.gameOver) {
-            // IMMEDIATELY disable the button and update state to prevent multiple clicks
             gameState.waveInProgress = true;
             waveButton.disableInteractive();
             waveButton.setFillStyle(0x666666);
             waveText.setText('Wave in Progress...');
             waveText.setColor('#aaaaaa');
-            console.log('Button disabled immediately');
             
-            // Now start the wave
             startWave(scene);
-        } else {
-            console.log('Wave button click ignored - wave in progress or game over');
         }
     });
     
     scene.towerButtons = towerButtons;
     scene.waveButton = waveButton;
     scene.waveText = waveText;
-    console.log('UI created - waveButton and waveText stored on scene');
 }
 
 function selectTowerType(scene, towerType) {
-    console.log('selectTowerType called with:', towerType);
+    if (gameState.gameOver) return;
     
-    // Prevent tower selection if game is over
-    if (gameState.gameOver) {
-        return;
-    }
-    
-    // IMPORTANT: Clean up any existing preview first (fixes ghost towers)
     if (gameState.isPlacingTower) {
         if (gameState.preview.tower) gameState.preview.tower.destroy();
         if (gameState.preview.range) gameState.preview.range.destroy();
@@ -1281,11 +1104,10 @@ function selectTowerType(scene, towerType) {
     
     gameState.selectedTowerType = towerType;
     gameState.isPlacingTower = true;
-    gameState.pendingPlacement = null; // Clear any pending placement
+    gameState.pendingPlacement = null;
     
     const towerDef = TOWER_TYPES[towerType];
     
-    // Create NEW preview elements
     gameState.preview.tower = scene.add.circle(0, 0, 15, towerDef.color, 0.5);
     gameState.preview.range = scene.add.circle(0, 0, towerDef.range, 0xffffff, 0);
     gameState.preview.range.setStrokeStyle(2, 0xffffff, 0.5);
@@ -1296,21 +1118,16 @@ function selectTowerType(scene, towerType) {
         strokeThickness: 3
     }).setOrigin(0.5);
     
-    // Show placement controls for mobile
     document.getElementById('placementControls').classList.add('active');
-    
-    console.log('Preview created - tap game area to position, then tap Confirm');
 }
 
 function setupInput(scene) {
-    // Mouse move to show preview
     scene.input.on('pointermove', (pointer) => {
         if (gameState.isPlacingTower) {
             gameState.preview.tower.setPosition(pointer.x, pointer.y);
             gameState.preview.range.setPosition(pointer.x, pointer.y);
             gameState.preview.cost.setPosition(pointer.x, pointer.y - 25);
             
-            // Check if placement is valid AND player can afford it
             const towerDef = TOWER_TYPES[gameState.selectedTowerType];
             const canPlace = pointer.x < 650 && !isOnPath(pointer.x, pointer.y);
             const canAfford = gameState.gold >= towerDef.cost;
@@ -1330,37 +1147,24 @@ function setupInput(scene) {
         }
     });
     
-    // Click/Tap to position preview (not place yet)
     scene.input.on('pointerdown', (pointer) => {
-        // Ignore if game is over
-        if (gameState.gameOver) {
-            return;
-        }
-        
-        // Ignore clicks in UI area (right side)
-        if (pointer.x >= 650) {
-            return;
-        }
+        if (gameState.gameOver) return;
+        if (pointer.x >= 650) return;
         
         if (gameState.isPlacingTower) {
             const towerDef = TOWER_TYPES[gameState.selectedTowerType];
             
             if (pointer.x < 650 && !isOnPath(pointer.x, pointer.y)) {
-                // Just store the position - don't place yet
-                // User needs to tap "Confirm" button to actually place
                 gameState.pendingPlacement = {
                     x: pointer.x,
                     y: pointer.y,
                     type: gameState.selectedTowerType,
                     scene: scene
                 };
-                
-                console.log('Position selected at', pointer.x, pointer.y, '- tap Confirm to place');
             }
         }
     });
     
-    // Keyboard controls - Cancel placement with C or ESC
     scene.input.keyboard.on('keydown-C', () => {
         cancelTowerPlacement();
     });
@@ -1369,72 +1173,48 @@ function setupInput(scene) {
         cancelTowerPlacement();
     });
     
-    // Keyboard controls - Confirm placement with Enter
     scene.input.keyboard.on('keydown-ENTER', () => {
-        // Don't confirm placement if math modal is open
         const mathModalOpen = document.getElementById('mathModal').classList.contains('active');
         
-        if (mathModalOpen) {
-            console.log('Enter pressed but math modal is open - ignoring placement confirmation');
-            return;
-        }
+        if (mathModalOpen) return;
         
         if (gameState.isPlacingTower && gameState.pendingPlacement) {
-            console.log('Enter pressed - confirming placement');
             confirmTowerPlacement();
         }
     });
 }
 
 function cancelTowerPlacement() {
-    console.log('Cancelling tower placement');
     if (gameState.isPlacingTower) {
         cleanupPlacement();
     }
 }
 
 function confirmTowerPlacement() {
-    console.log('confirmTowerPlacement called');
-    console.log('isPlacingTower:', gameState.isPlacingTower);
-    console.log('pendingPlacement:', gameState.pendingPlacement);
-    
-    if (!gameState.isPlacingTower) {
-        console.log('Not in placement mode');
-        return;
-    }
-    
-    if (!gameState.pendingPlacement) {
-        console.log('No placement position selected yet - tap the game area first');
-        return;
-    }
+    if (!gameState.isPlacingTower) return;
+    if (!gameState.pendingPlacement) return;
     
     const towerDef = TOWER_TYPES[gameState.selectedTowerType];
     const scene = gameState.pendingPlacement.scene;
     
     if (!scene) {
-        console.error('Scene reference lost! This should not happen.');
         cancelTowerPlacement();
         return;
     }
     
-    // Check if player can afford the tower
     if (gameState.gold < towerDef.cost) {
-        console.log('Cannot afford tower! Need', towerDef.cost, 'but only have', gameState.gold);
         alert(`Not enough gold! Need ${towerDef.cost}g but only have ${gameState.gold}g`);
         return;
     }
     
-    // Check if placement is valid
     const x = gameState.pendingPlacement.x;
     const y = gameState.pendingPlacement.y;
     
     if (x >= 650 || isOnPath(x, y)) {
-        console.log('Invalid placement location');
-        alert('Invalid placement! Cannot place on path or UI area.');
+        alert('Invalid placement!');
         return;
     }
     
-    // Determine time limit based on difficulty
     let timeLimit;
     if (gameState.difficulty === 'easy') {
         timeLimit = 60;
@@ -1444,16 +1224,13 @@ function confirmTowerPlacement() {
         timeLimit = 20;
     }
     
-    // Show math problem to buy tower
     const problem = generateMathProblem(gameState.difficulty, towerDef.cost);
-    console.log('Confirming placement - showing math problem');
     
     showMathProblem(problem.question, timeLimit, (answered, answer) => {
         if (answered && answer === problem.answer) {
-            // Correct! Award gold based on difficulty
             let goldReward = 0;
             if (gameState.difficulty === 'easy') {
-                goldReward = 50;
+                goldReward = 30;
             } else if (gameState.difficulty === 'normal') {
                 goldReward = 75;
             } else {
@@ -1461,35 +1238,21 @@ function confirmTowerPlacement() {
             }
             
             gameState.gold += goldReward;
-            console.log('Problem solved! Earned', goldReward, 'gold. Total gold:', gameState.gold);
-            
-            // Track the completion
             gameState.totalProblemsCompleted++;
-            
-            // Deduct tower cost
             gameState.gold -= towerDef.cost;
-            console.log('Tower placed for', towerDef.cost, 'gold. Remaining:', gameState.gold);
             
-            // Check if we should unlock new towers
             checkTowerUnlocks(scene);
-            
-            // Place the tower
             placeTower(scene, gameState.pendingPlacement.x, gameState.pendingPlacement.y, gameState.pendingPlacement.type);
             updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
         }
         
-        // Clean up either way (success or failure)
         cleanupPlacement();
     });
 }
 
-// Helper function to clean up placement state
 function cleanupPlacement() {
-    console.log('Cleaning up placement state');
-    
     gameState.pendingPlacement = null;
     
-    // Clean up preview
     if (gameState.preview.tower) {
         gameState.preview.tower.destroy();
         gameState.preview.tower = null;
@@ -1506,114 +1269,269 @@ function cleanupPlacement() {
     gameState.isPlacingTower = false;
     gameState.selectedTowerType = null;
     
-    // Hide placement controls
     document.getElementById('placementControls').classList.remove('active');
 }
 
+function checkTowerUnlocks(scene) {
+    if (!gameState.unlockedTowers.includes('math-cannon')) {
+        const requirement = TOWER_TYPES['math-cannon'].unlockRequirement;
+        
+        if (gameState.difficulty === requirement.difficulty && 
+            gameState.totalProblemsCompleted >= requirement.problems) {
+            console.log('🎉 UNLOCKED: Support Aura tower!');
+            gameState.unlockedTowers.push('math-cannon');
+            
+            if (scene && scene.towerButtons) {
+                updateTowerButtonUI(scene);
+            }
+        }
+    }
+}
+
+function updateTowerButtonUI(scene) {
+    for (const buttonData of scene.towerButtons) {
+        const key = buttonData.key;
+        const isUnlocked = gameState.unlockedTowers.includes(key);
+        
+        if (isUnlocked) {
+            buttonData.button.setFillStyle(0x4a4a4a);
+            buttonData.button.setStrokeStyle(2, 0xffffff);
+            buttonData.button.setInteractive({ useHandCursor: true });
+            buttonData.text.setText(TOWER_TYPES[key].name + '\n' + TOWER_TYPES[key].cost + 'g');
+            buttonData.text.setColor('#ffffff');
+            
+            buttonData.button.removeAllListeners('pointerdown');
+            buttonData.button.on('pointerdown', () => {
+                selectTowerType(scene, key);
+            });
+        }
+    }
+}
+
 function showSellTowerModal(tower) {
-    console.log('Showing sell modal for tower:', tower.type);
-    
     gameState.selectedTowerToSell = tower;
     
-    // Calculate sell price (50% of original cost)
     const sellPrice = Math.floor(tower.cost * 0.5);
     
-    // Update modal text
     document.getElementById('sellTowerInfo').textContent = 
         `Sell ${tower.name} for ${sellPrice} gold? (50% refund)`;
     
-    // Show modal and overlay
     document.getElementById('overlay').classList.add('active');
     document.getElementById('sellTowerModal').classList.add('active');
 }
 
 function confirmSellTower() {
-    if (!gameState.selectedTowerToSell) {
-        console.error('No tower selected to sell');
-        return;
-    }
+    if (!gameState.selectedTowerToSell) return;
     
     const tower = gameState.selectedTowerToSell;
     const sellPrice = Math.floor(tower.cost * 0.5);
     
-    console.log('Selling tower for', sellPrice, 'gold');
-    
-    // Add gold
     gameState.gold += sellPrice;
     
-    // Destroy tower graphics
     if (tower.graphic) tower.graphic.destroy();
     if (tower.rangeCircle) tower.rangeCircle.destroy();
     if (tower.readyIndicator) tower.readyIndicator.destroy();
     if (tower.auraGraphic) tower.auraGraphic.destroy();
+    if (tower.noiseWarning) tower.noiseWarning.destroy();
     
-    // Remove from towers array
     const index = gameState.towers.indexOf(tower);
     if (index > -1) {
         gameState.towers.splice(index, 1);
     }
     
-    // Recalculate noise
     calculateNoise();
-    
-    // Update HUD
     updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
-    
-    // Close modal
     cancelSellTower();
-    
-    console.log('Tower sold successfully');
 }
 
 function cancelSellTower() {
     gameState.selectedTowerToSell = null;
     
-    // Hide modal and overlay
     document.getElementById('overlay').classList.remove('active');
     document.getElementById('sellTowerModal').classList.remove('active');
 }
 
+function calculateNoise() {
+    let autoFireCount = 0;
+    for (const tower of gameState.towers) {
+        if (!tower.requiresMath && !tower.isSupportTower) {
+            autoFireCount++;
+        }
+    }
+    
+    let noisePerTower;
+    if (gameState.difficulty === 'easy') {
+        noisePerTower = 6;
+    } else if (gameState.difficulty === 'normal') {
+        noisePerTower = 7;
+    } else {
+        noisePerTower = 10;
+    }
+    
+    gameState.noise = autoFireCount * noisePerTower;
+    
+    return gameState.noise;
+}
+
+function placeTower(scene, x, y, towerType) {
+    const towerDef = TOWER_TYPES[towerType];
+    
+    const tower = {
+        x, y,
+        type: towerType,
+        ...towerDef,
+        lastFired: 0,
+        level: 1,
+        readyToFire: false,
+        currentTarget: null,
+        readyIndicator: null,
+        scene: scene
+    };
+    
+    // ✅ USE ANIMATED SPRITE FOR BASIC TOWER
+    if (towerType === 'basic' && scene.textures.exists('tower_basic_idle')) {
+        console.log('✅ Using animated sprite for basic tower');
+        tower.graphic = scene.add.sprite(x, y, 'tower_basic_idle');
+        tower.graphic.setScale(1.5);
+        
+        // Play idle animation
+        if (scene.anims.exists('tower_basic_idle')) {
+            tower.graphic.play('tower_basic_idle');
+        }
+    } else {
+        // Fallback for other towers or if sprite not found
+        const spriteKey = 'tower_' + towerType.replace('-', '_');
+        if (scene.textures.exists(spriteKey)) {
+            tower.graphic = scene.add.sprite(x, y, spriteKey);
+            tower.graphic.setScale(1.0);
+        } else {
+            tower.graphic = scene.add.circle(x, y, 15, towerDef.color);
+            tower.graphic.setStrokeStyle(2, 0x000000);
+        }
+    }
+    
+    if (towerDef.isSupportTower) {
+        tower.auraGraphic = scene.add.circle(x, y, towerDef.auraRange, 0xff6600, 0);
+        tower.auraGraphic.setStrokeStyle(3, 0xff6600, 0.3);
+        
+        scene.tweens.add({
+            targets: tower.auraGraphic,
+            alpha: { from: 0.1, to: 0.3 },
+            scale: { from: 0.95, to: 1.05 },
+            duration: 2000,
+            yoyo: true,
+            repeat: -1
+        });
+    }
+    
+    tower.rangeCircle = scene.add.circle(x, y, towerDef.range, 0x000000, 0);
+    tower.rangeCircle.setStrokeStyle(2, 0xffffff, 0);
+    
+    tower.graphic.setInteractive({ useHandCursor: true });
+    tower.graphic.on('pointerover', () => tower.rangeCircle.setAlpha(0.2));
+    tower.graphic.on('pointerout', () => tower.rangeCircle.setAlpha(0));
+    
+    tower.graphic.on('pointerdown', (pointer, localX, localY, event) => {
+        event.stopPropagation();
+        
+        if (gameState.sellMode) {
+            showSellTowerModal(tower);
+            return;
+        }
+        
+        if (tower.requiresMath && tower.readyToFire && tower.currentTarget) {
+            let timeLimit;
+            if (gameState.difficulty === 'easy') {
+                timeLimit = 30;
+            } else if (gameState.difficulty === 'normal') {
+                timeLimit = 20;
+            } else {
+                timeLimit = 15;
+            }
+            
+            const problem = generateMathProblem(gameState.difficulty, tower.cost);
+            const savedTarget = tower.currentTarget;
+            
+            showMathProblem(problem.question, timeLimit, (answered, answer) => {
+                if (answered && answer === problem.answer) {
+                    let goldReward = 0;
+                    if (gameState.difficulty === 'easy') {
+                        goldReward = 30;
+                    } else if (gameState.difficulty === 'normal') {
+                        goldReward = 75;
+                    } else {
+                        goldReward = 100;
+                    }
+                    
+                    gameState.gold += goldReward;
+                    gameState.totalProblemsCompleted++;
+                    
+                    checkTowerUnlocks(tower.scene);
+                    
+                    if (savedTarget && savedTarget.graphic && savedTarget.graphic.active) {
+                        fireTower(tower.scene, tower, savedTarget);
+                        
+                        if (tower.scene && tower.scene.time) {
+                            tower.lastFired = tower.scene.time.now;
+                        } else {
+                            tower.lastFired = 0;
+                        }
+                    }
+                    
+                    updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
+                } else {
+                    tower.lastFired = 0;
+                }
+                
+                tower.readyToFire = false;
+                tower.currentTarget = null;
+                
+                if (tower.readyIndicator) {
+                    tower.readyIndicator.destroy();
+                    tower.readyIndicator = null;
+                }
+            });
+        } else {
+            showSellTowerModal(tower);
+        }
+    });
+    
+    gameState.towers.push(tower);
+    calculateNoise();
+}
+
 function generateMathProblem(difficulty, towerCost) {
-    console.log('generateMathProblem called with difficulty:', difficulty, 'towerCost:', towerCost);
     let num1, num2, operation, answer, question;
     
-    // Scale difficulty based on tower cost
-    const scale = Math.floor(towerCost / 50); // 100 cost = 2, 150 cost = 3, 200 cost = 4
+    const scale = Math.floor(towerCost / 50);
+    const waveScale = 1 + (gameState.wave * 0.1);
     
     if (difficulty === 'easy') {
-        // ONLY addition and subtraction with single digits and simple tens
-        console.log('Easy difficulty detected - using only addition/subtraction');
         if (Math.random() < 0.5) {
-            // Addition: either digit + digit or digit + tens
-            if (Math.random() < 0.5) {
-                // Single digit + single digit (1-9)
-                num1 = Math.floor(Math.random() * 9) + 1;
-                num2 = Math.floor(Math.random() * 9) + 1;
+            if (Math.random() < 0.5 - (gameState.wave * 0.05)) {
+                const maxDigit = Math.min(15, 9 + Math.floor(gameState.wave / 2));
+                num1 = Math.floor(Math.random() * maxDigit) + 1;
+                num2 = Math.floor(Math.random() * maxDigit) + 1;
             } else {
-                // Single digit + tens (10, 20, 30)
-                num1 = Math.floor(Math.random() * 9) + 1;
-                num2 = (Math.floor(Math.random() * 3) + 1) * 10; // 10, 20, or 30
+                const maxDigit = Math.min(15, 9 + Math.floor(gameState.wave / 2));
+                num1 = Math.floor(Math.random() * maxDigit) + 1;
+                num2 = (Math.floor(Math.random() * Math.min(5, 3 + Math.floor(gameState.wave / 3))) + 1) * 10;
             }
             answer = num1 + num2;
             question = `${num1} + ${num2} = ?`;
-            console.log('Generated addition problem');
         } else {
-            // Subtraction: either tens - digit or digit - digit
             if (Math.random() < 0.5) {
-                // Tens - single digit (like 20 - 5)
-                num1 = (Math.floor(Math.random() * 3) + 1) * 10; // 10, 20, or 30
-                num2 = Math.floor(Math.random() * 9) + 1;
+                num1 = (Math.floor(Math.random() * Math.min(7, 3 + Math.floor(gameState.wave / 2))) + 1) * 10;
+                num2 = Math.floor(Math.random() * Math.min(15, 9 + Math.floor(gameState.wave / 3))) + 1;
             } else {
-                // Single digit - single digit (making sure num1 > num2)
-                num2 = Math.floor(Math.random() * 9) + 1;
-                num1 = num2 + Math.floor(Math.random() * (9 - num2)) + 1;
+                const maxDigit = Math.min(20, 9 + gameState.wave);
+                num2 = Math.floor(Math.random() * maxDigit) + 1;
+                num1 = num2 + Math.floor(Math.random() * maxDigit) + 1;
             }
             answer = num1 - num2;
             question = `${num1} - ${num2} = ?`;
-            console.log('Generated subtraction problem');
         }
     } else if (difficulty === 'normal') {
-        // Addition, subtraction, and multiplication
         const rand = Math.random();
         if (rand < 0.33) {
             num1 = Math.floor(Math.random() * (15 * scale)) + scale;
@@ -1629,21 +1547,20 @@ function generateMathProblem(difficulty, towerCost) {
             num1 = Math.floor(Math.random() * (5 * scale)) + scale;
             num2 = Math.floor(Math.random() * (5 * scale)) + scale;
             answer = num1 * num2;
-            question = `${num1} Ã— ${num2} = ?`;
+            question = `${num1} × ${num2} = ?`;
         }
-    } else { // hard
-        // Multiplication, division, and harder subtraction
+    } else {
         const rand = Math.random();
         if (rand < 0.4) {
             num1 = Math.floor(Math.random() * (8 * scale)) + scale;
             num2 = Math.floor(Math.random() * (8 * scale)) + scale;
             answer = num1 * num2;
-            question = `${num1} Ã— ${num2} = ?`;
+            question = `${num1} × ${num2} = ?`;
         } else if (rand < 0.7) {
             num2 = Math.floor(Math.random() * (8 * scale)) + scale;
             answer = Math.floor(Math.random() * (10 * scale)) + scale;
             num1 = answer * num2;
-            question = `${num1} Ã· ${num2} = ?`;
+            question = `${num1} ÷ ${num2} = ?`;
         } else {
             num1 = Math.floor(Math.random() * (30 * scale)) + (20 * scale);
             num2 = Math.floor(Math.random() * (20 * scale)) + scale;
@@ -1691,239 +1608,57 @@ function distanceToLineSegment(x, y, x1, y1, x2, y2) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-function calculateNoise() {
-    // Count auto-fire towers (towers that don't require math and aren't support)
-    let autoFireCount = 0;
-    for (const tower of gameState.towers) {
-        if (!tower.requiresMath && !tower.isSupportTower) {
-            autoFireCount++;
-        }
-    }
-    
-    // Noise per tower scales with difficulty
-    let noisePerTower;
-    if (gameState.difficulty === 'easy') {
-        noisePerTower = 3;  // 17 towers to reach 50% threshold (more forgiving)
-    } else if (gameState.difficulty === 'normal') {
-        noisePerTower = 5;  // 10 towers to reach 50% threshold
-    } else { // hard
-        noisePerTower = 8;  // 7 towers to reach 50% threshold (encourages math towers)
-    }
-    
-    gameState.noise = autoFireCount * noisePerTower;
-    
-    console.log('Noise calculated:', gameState.noise + '% (Auto-fire towers:', autoFireCount, '| Difficulty:', gameState.difficulty, '| Noise per tower:', noisePerTower + '%)');
-    
-    return gameState.noise;
-}
-
-function placeTower(scene, x, y, towerType) {
-    const towerDef = TOWER_TYPES[towerType];
-
-    const tower = {
-        x, y,
-        type: towerType,
-        ...towerDef,
-        lastFired: 0,
-        level: 1,
-        readyToFire: false,
-        currentTarget: null,
-        readyIndicator: null,
-        scene: scene
-    };
-
-    // Special handling for basic tower with animations
-    if (towerType === 'basic' && scene.textures.exists('tower_basic_idle')) {
-        console.log('Using animated sprite for basic tower');
-        tower.graphic = scene.add.sprite(x, y, 'tower_basic_idle');
-        tower.graphic.setScale(1.5); // Scale up for better visibility
-
-        // Play idle animation
-        if (scene.anims.exists('tower_basic_idle')) {
-            tower.graphic.play('tower_basic_idle');
-        }
-    } else {
-        // Use sprite if available, otherwise fallback to circle
-        const spriteKey = 'tower_' + towerType.replace('-', '_');
-        if (scene.textures.exists(spriteKey)) {
-            console.log('Using sprite:', spriteKey);
-            tower.graphic = scene.add.sprite(x, y, spriteKey);
-            tower.graphic.setScale(1.0); // Adjust scale as needed
-        } else {
-            // Fallback to colored circle
-            console.log('No sprite found for', towerType, '- using circle fallback');
-            tower.graphic = scene.add.circle(x, y, 15, towerDef.color);
-            tower.graphic.setStrokeStyle(2, 0x000000);
-        }
-    }
-    
-    // Support towers get a special pulsing aura visual
-    if (towerDef.isSupportTower) {
-        tower.auraGraphic = scene.add.circle(x, y, towerDef.auraRange, 0xff6600, 0);
-        tower.auraGraphic.setStrokeStyle(3, 0xff6600, 0.3);
-        
-        // Pulse animation for the aura
-        scene.tweens.add({
-            targets: tower.auraGraphic,
-            alpha: { from: 0.1, to: 0.3 },
-            scale: { from: 0.95, to: 1.05 },
-            duration: 2000,
-            yoyo: true,
-            repeat: -1
-        });
-    }
-    
-    tower.rangeCircle = scene.add.circle(x, y, towerDef.range, 0x000000, 0);
-    tower.rangeCircle.setStrokeStyle(2, 0xffffff, 0);
-    
-    tower.graphic.setInteractive({ useHandCursor: true });
-    tower.graphic.on('pointerover', () => tower.rangeCircle.setAlpha(0.2));
-    tower.graphic.on('pointerout', () => tower.rangeCircle.setAlpha(0));
-    
-    // Click handler for math towers
-    tower.graphic.on('pointerdown', (pointer, localX, localY, event) => {
-        console.log('Tower clicked! Type:', tower.type, 'RequiresMath:', tower.requiresMath, 'ReadyToFire:', tower.readyToFire, 'HasTarget:', !!tower.currentTarget);
-        
-        // Stop event propagation so it doesn't trigger placement handler
-        event.stopPropagation();
-        
-        // Priority 1: If in sell mode, show sell modal
-        if (gameState.sellMode) {
-            console.log('Sell mode active - showing sell modal');
-            showSellTowerModal(tower);
-            return;
-        }
-        
-        // Priority 2: If it's a math tower ready to fire, show math problem
-        if (tower.requiresMath && tower.readyToFire && tower.currentTarget) {
-            console.log('Math tower clicked, showing problem');
-            
-            // Determine time limit based on difficulty
-            let timeLimit;
-            if (gameState.difficulty === 'easy') {
-                timeLimit = 30; // 30 seconds for tower firing in easy
-            } else if (gameState.difficulty === 'normal') {
-                timeLimit = 20;
-            } else {
-                timeLimit = 15;
-            }
-            
-            const problem = generateMathProblem(gameState.difficulty, tower.cost);
-            const savedTarget = tower.currentTarget;
-            
-            showMathProblem(problem.question, timeLimit, (answered, answer) => {
-                if (answered && answer === problem.answer) {
-                    // Correct! Award gold based on difficulty
-                    let goldReward = 0;
-                    if (gameState.difficulty === 'easy') {
-                        goldReward = 50;
-                    } else if (gameState.difficulty === 'normal') {
-                        goldReward = 75;
-                    } else { // hard
-                        goldReward = 100;
-                    }
-                    
-                    gameState.gold += goldReward;
-                    console.log('Problem solved! Earned', goldReward, 'gold. Total gold:', gameState.gold);
-                    
-                    // Track the completion
-                    gameState.totalProblemsCompleted++;
-                    
-                    // Check if we should unlock new towers
-                    checkTowerUnlocks(tower.scene);
-                    
-                    // Fire the tower
-                    if (savedTarget && savedTarget.graphic && savedTarget.graphic.active) {
-                        fireTower(tower.scene, tower, savedTarget);
-                        console.log('Math tower fired at target!');
-                        
-                        // Set cooldown after firing - use Phaser's time system
-                        if (tower.scene && tower.scene.time) {
-                            tower.lastFired = tower.scene.time.now;
-                            console.log('Tower cooldown started. LastFired set to:', tower.lastFired);
-                        } else {
-                            // Fallback: set to 0 so it can fire again after cooldown
-                            console.warn('Could not access scene.time, tower will be ready immediately');
-                            tower.lastFired = 0;
-                        }
-                    } else {
-                        console.log('Target no longer valid - cannot fire');
-                    }
-                    
-                    // Update HUD to show new gold amount
-                    updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
-                } else {
-                    // Wrong answer or timeout - no gold, no shot, but no cooldown penalty
-                    console.log('Math problem failed - tower will be ready again immediately');
-                    tower.lastFired = 0; // No cooldown penalty for wrong answer
-                }
-                
-                // ALWAYS reset these states
-                tower.readyToFire = false;
-                tower.currentTarget = null;
-                
-                // Remove ready indicator
-                if (tower.readyIndicator) {
-                    tower.readyIndicator.destroy();
-                    tower.readyIndicator = null;
-                }
-            });
-        }
-        // Priority 3: Otherwise, just show info (or show sell modal)
-        else {
-            console.log('Tower clicked but not ready to fire - showing sell modal');
-            showSellTowerModal(tower);
-        }
-    });
-    
-    gameState.towers.push(tower);
-    
-    // Recalculate noise level
-    calculateNoise();
-}
-
 function startWave(scene) {
-    console.log('Starting wave - waveInProgress already set to:', gameState.waveInProgress);
-    
-    // Increment wave counter
     gameState.wave++;
     updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
     
-    // Set up spawn tracking - enemies increase more dramatically each wave
-    const baseEnemyCount = 5 + gameState.wave * 3; // Increased from *2 to *3 for faster scaling
+    const baseEnemyCount = 3 + gameState.wave * 2;
+    const difficultyMultiplier = {
+        'easy': 0.8,
+        'normal': 1.0,
+        'hard': 1.2
+    }[gameState.difficulty];
+    
     const isBossWave = gameState.wave % 5 === 0;
-    const enemyCount = isBossWave ? baseEnemyCount + 1 : baseEnemyCount; // Add 1 boss
+    const enemyCount = Math.floor(baseEnemyCount * difficultyMultiplier) + (isBossWave ? 1 : 0);
     
     gameState.totalEnemiesToSpawn = enemyCount;
     gameState.enemiesSpawnedThisWave = 0;
-    console.log('Wave', gameState.wave, '- Will spawn', enemyCount, 'enemies', isBossWave ? '(BOSS WAVE!)' : '');
     
-    // Double-check button is disabled (it should already be from the click handler)
     if (scene.waveButton && scene.waveText) {
-        console.log('Confirming wave button is disabled');
         scene.waveButton.disableInteractive();
         scene.waveButton.setFillStyle(0x666666);
         scene.waveText.setText(isBossWave ? 'BOSS WAVE!' : 'Wave in Progress...');
         scene.waveText.setColor(isBossWave ? '#ff00ff' : '#aaaaaa');
-    } else {
-        console.error('Wave button or text not found!');
     }
     
-    // Spawn regular enemies (mix of basic and fast)
+    const fastEnemyChance = Math.min(0.4, 0.2 + (gameState.wave * 0.03));
+    const tankChance = gameState.wave > 2 ? Math.min(0.2, 0.05 * (gameState.wave - 2)) : 0;
+    
+    let enemiesSpawned = 0;
+    const regularEnemyCount = isBossWave ? enemyCount - 1 : enemyCount;
+    
     scene.time.addEvent({
         delay: 1000,
-        repeat: baseEnemyCount - 1,
+        repeat: regularEnemyCount - 1,
         callback: () => {
-            // 30% chance to spawn fast enemy, 70% chance for basic
-            const enemyType = Math.random() < 0.3 ? 'fast' : 'basic';
+            let enemyType = 'basic';
+            const rand = Math.random();
+            
+            if (rand < tankChance && gameState.wave > 2) {
+                enemyType = 'tank';
+            } else if (rand < tankChance + fastEnemyChance) {
+                enemyType = 'fast';
+            }
+            
             spawnEnemy(scene, enemyType);
+            enemiesSpawned++;
         }
     });
     
-    // Spawn boss at the end if it's a boss wave
     if (isBossWave) {
         scene.time.addEvent({
-            delay: 1000 * (baseEnemyCount + 2), // Boss spawns 2 seconds after last regular enemy
+            delay: 1000 * (regularEnemyCount + 2),
             callback: () => {
                 spawnEnemy(scene, 'boss');
             }
@@ -1934,32 +1669,32 @@ function startWave(scene) {
 function showGameOver(scene) {
     gameState.gameOver = true;
     
-    // Update final stats
     document.getElementById('finalScore').textContent = gameState.score;
     document.getElementById('finalWave').textContent = gameState.wave;
     document.getElementById('finalEnemies').textContent = gameState.enemiesDefeated;
     
-    // Show game over modal
     document.getElementById('overlay').classList.add('active');
     document.getElementById('gameOverModal').classList.add('active');
     
-    // Disable wave button
     if (scene.waveButton && scene.waveText) {
         scene.waveButton.setFillStyle(0x666666);
         scene.waveButton.disableInteractive();
         scene.waveText.setText('Game Over');
-        scene.waveText.setColor('#ff6b6b'); // Red text for game over
+        scene.waveText.setColor('#ff6b6b');
     }
 }
 
 function spawnEnemy(scene, type = 'basic') {
     const enemyDef = ENEMY_TYPES[type];
-
+    
+    const speedMultiplier = Math.min(2.0, 1 + (gameState.wave * 0.05));
+    const healthMultiplier = Math.min(3.0, 1 + (gameState.wave * 0.10));
+    
     const enemy = {
         type,
-        health: enemyDef.health,
-        maxHealth: enemyDef.health,
-        speed: enemyDef.speed,
+        health: Math.floor(enemyDef.health * healthMultiplier),
+        maxHealth: Math.floor(enemyDef.health * healthMultiplier),
+        speed: enemyDef.baseSpeed * speedMultiplier,
         gold: enemyDef.gold,
         isBoss: enemyDef.isBoss || false,
         pathIndex: 0,
@@ -1967,32 +1702,27 @@ function spawnEnemy(scene, type = 'basic') {
         y: gameState.path[0].y,
         slowEffect: 1
     };
-
-    // Use sprite if available, otherwise fallback to circle
+    
     const spriteKey = 'enemy_' + type;
     if (scene.textures.exists(spriteKey)) {
         enemy.graphic = scene.add.sprite(enemy.x, enemy.y, spriteKey);
-
-        // Play walking animation
+        
         const animKey = spriteKey + '_walk';
         if (scene.anims.exists(animKey)) {
             enemy.graphic.play(animKey);
         }
-
-        // Set scale based on type
+        
         if (enemy.isBoss) {
             enemy.graphic.setScale(1.2);
         } else {
             enemy.graphic.setScale(1.0);
         }
     } else {
-        // Fallback to colored circle
         const size = enemy.isBoss ? 15 : 8;
         enemy.graphic = scene.add.circle(enemy.x, enemy.y, size, enemyDef.color);
         enemy.graphic.setStrokeStyle(enemy.isBoss ? 4 : 2, 0x000000);
     }
     
-    // Boss crown indicator
     if (enemy.isBoss) {
         enemy.crownText = scene.add.text(enemy.x, enemy.y - 25, '👑', {
             fontSize: '20px'
@@ -2005,16 +1735,11 @@ function spawnEnemy(scene, type = 'basic') {
     
     gameState.enemies.push(enemy);
     gameState.enemiesSpawnedThisWave++;
-    console.log('Enemy spawned (' + type + '):', gameState.enemiesSpawnedThisWave, '/', gameState.totalEnemiesToSpawn);
 }
 
 function update(time, delta) {
-    // Don't update if game is over
-    if (gameState.gameOver) {
-        return;
-    }
+    if (gameState.gameOver) return;
     
-    // Check for game over
     if (gameState.health <= 0) {
         showGameOver(this);
         return;
@@ -2041,13 +1766,11 @@ function update(time, delta) {
                 enemy.healthBarBg.setPosition(enemy.x, enemy.y - 15);
                 enemy.healthBar.setPosition(enemy.x, enemy.y - 15);
                 
-                // Update crown text for bosses
                 if (enemy.crownText) {
                     enemy.crownText.setPosition(enemy.x, enemy.y - 25);
                 }
             }
         } else {
-            // Reached base
             gameState.health -= 10;
             updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
             
@@ -2068,7 +1791,6 @@ function update(time, delta) {
             if (enemy.crownText) enemy.crownText.destroy();
             gameState.enemies.splice(i, 1);
             
-            // Check for game over after enemy reaches base
             if (gameState.health <= 0) {
                 showGameOver(this);
                 return;
@@ -2078,7 +1800,37 @@ function update(time, delta) {
     
     // Update towers
     for (const tower of gameState.towers) {
-        // Skip support towers - they don't fire
+        if (!tower.requiresMath && !tower.isSupportTower && gameState.noise >= 45) {
+            if (!tower.noiseWarning) {
+                tower.noiseWarning = this.add.graphics();
+                tower.noiseWarning.lineStyle(2, 0xff0000, 0.5);
+                tower.noiseWarning.strokeCircle(0, 0, 20);
+                tower.noiseWarning.setPosition(tower.x, tower.y);
+                
+                this.tweens.add({
+                    targets: tower.noiseWarning,
+                    alpha: { from: 0.3, to: 0.8 },
+                    scale: { from: 0.95, to: 1.1 },
+                    duration: 1000,
+                    yoyo: true,
+                    repeat: -1
+                });
+            }
+            
+            if (gameState.noise >= 50 && Math.random() < 0.1) {
+                if (tower.graphic) {
+                    const originalTint = tower.graphic.tintTopLeft || 0xffffff;
+                    tower.graphic.setTint(0xff0000);
+                    this.time.delayedCall(50, () => {
+                        if (tower.graphic) tower.graphic.setTint(originalTint);
+                    });
+                }
+            }
+        } else if (tower.noiseWarning) {
+            tower.noiseWarning.destroy();
+            tower.noiseWarning = null;
+        }
+        
         if (tower.isSupportTower) {
             continue;
         }
@@ -2088,17 +1840,13 @@ function update(time, delta) {
             
             if (target) {
                 if (tower.requiresMath) {
-                    // Check if there's a support tower nearby providing auto-fire for bosses
                     const hasSupportAura = checkForSupportAura(tower);
                     const shouldAutoFire = hasSupportAura && target.isBoss;
                     
                     if (shouldAutoFire) {
-                        // Auto-fire at boss thanks to support tower
-                        console.log('Math tower auto-firing at boss due to support aura!');
                         fireTower(this, tower, target);
                         tower.lastFired = time;
                         
-                        // Remove ready indicator if any
                         if (tower.readyIndicator) {
                             tower.readyIndicator.destroy();
                             tower.readyIndicator = null;
@@ -2106,13 +1854,10 @@ function update(time, delta) {
                         tower.readyToFire = false;
                         tower.currentTarget = null;
                     } else {
-                        // Normal math tower behavior - show ready indicator
                         if (!tower.readyIndicator) {
-                            // Create a pulsing indicator
                             tower.readyIndicator = this.add.circle(tower.x, tower.y, 20, 0xffff00, 0);
                             tower.readyIndicator.setStrokeStyle(3, 0xffff00, 0.8);
                             
-                            // Pulse animation
                             this.tweens.add({
                                 targets: tower.readyIndicator,
                                 alpha: { from: 0.3, to: 0.8 },
@@ -2126,12 +1871,10 @@ function update(time, delta) {
                         tower.readyToFire = true;
                     }
                 } else {
-                    // Auto tower - fire automatically
                     fireTower(this, tower, target);
                     tower.lastFired = time;
                 }
             } else {
-                // No target - remove ready indicator
                 if (tower.readyIndicator) {
                     tower.readyIndicator.destroy();
                     tower.readyIndicator = null;
@@ -2146,30 +1889,97 @@ function update(time, delta) {
     for (let i = gameState.projectiles.length - 1; i >= 0; i--) {
         const proj = gameState.projectiles[i];
         
+        if (proj.x < -50 || proj.x > 850 || proj.y < -50 || proj.y > 650) {
+            proj.graphic.destroy();
+            gameState.projectiles.splice(i, 1);
+            continue;
+        }
+        
+        if (proj.missed) {
+            const speed = (400 * delta) / 1000;
+            proj.x += proj.missVelocityX * speed;
+            proj.y += proj.missVelocityY * speed;
+            proj.graphic.setPosition(proj.x, proj.y);
+            
+            if (proj.graphic.alpha > 0.1) {
+                proj.graphic.setAlpha(proj.graphic.alpha - 0.02);
+            }
+            continue;
+        }
+        
         if (proj.target && proj.target.graphic && proj.target.graphic.active) {
             const dx = proj.target.x - proj.x;
             const dy = proj.target.y - proj.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < 10) {
-                // Check for miss chance if noise >= 50% and projectile is from auto-fire tower
                 let missed = false;
                 if (proj.isAutoFire && gameState.noise >= 50) {
-                    // Miss chance increases with noise level
-                    // At 50% noise = 20% miss chance, at 100% noise = 50% miss chance
                     const missChance = Math.min(0.5, (gameState.noise - 50) / 100 + 0.2);
                     missed = Math.random() < missChance;
-
+                    
                     if (missed) {
-                        console.log('Shot missed due to high noise! (', Math.round(missChance * 100), '% miss chance)');
+                        proj.missed = true;
+                        
+                        const missAngleOffset = (Math.random() - 0.5) * Math.PI;
+                        const currentAngle = Math.atan2(dy, dx);
+                        const missAngle = currentAngle + missAngleOffset;
+                        
+                        proj.missVelocityX = Math.cos(missAngle) * 1.5;
+                        proj.missVelocityY = Math.sin(missAngle) * 1.5;
+                        
+                        if (proj.graphic.type === 'Sprite') {
+                            proj.graphic.setTint(0xff3333);
+                        } else {
+                            proj.graphic.setFillStyle(0xff3333);
+                        }
+                        
+                        const missText = this.add.text(proj.x, proj.y - 10, 'MISS!', {
+                            fontSize: '12px',
+                            color: '#ff0000',
+                            fontStyle: 'bold',
+                            stroke: '#ffffff',
+                            strokeThickness: 2
+                        }).setOrigin(0.5);
+                        
+                        this.tweens.add({
+                            targets: missText,
+                            y: missText.y - 20,
+                            alpha: 0,
+                            duration: 500,
+                            onComplete: () => missText.destroy()
+                        });
+                        
+                        if (!this.cameras.main.shakeEffect.isRunning) {
+                            this.cameras.main.shake(100, 0.002);
+                        }
+                        
+                        for (let p = 0; p < 3; p++) {
+                            const particle = this.add.circle(
+                                proj.x + (Math.random() - 0.5) * 10, 
+                                proj.y + (Math.random() - 0.5) * 10, 
+                                2, 
+                                0xff3333
+                            );
+                            
+                            const pAngle = Math.random() * Math.PI * 2;
+                            const pSpeed = 50 + Math.random() * 50;
+                            
+                            this.tweens.add({
+                                targets: particle,
+                                x: particle.x + Math.cos(pAngle) * pSpeed,
+                                y: particle.y + Math.sin(pAngle) * pSpeed,
+                                alpha: 0,
+                                duration: 300,
+                                onComplete: () => particle.destroy()
+                            });
+                        }
+                        
+                        continue;
                     }
                 }
-
-                // Only damage if didn't miss
-                if (!missed) {
-                    damageEnemy(proj.target, proj.damage);
-                }
-
+                
+                damageEnemy(proj.target, proj.damage);
                 proj.graphic.destroy();
                 gameState.projectiles.splice(i, 1);
             } else {
@@ -2177,8 +1987,7 @@ function update(time, delta) {
                 proj.x += (dx / distance) * speed;
                 proj.y += (dy / distance) * speed;
                 proj.graphic.setPosition(proj.x, proj.y);
-
-                // Update rotation if it's a sprite
+                
                 if (proj.graphic.type === 'Sprite') {
                     const angle = Phaser.Math.Angle.Between(proj.x, proj.y, proj.target.x, proj.target.y);
                     proj.graphic.setRotation(angle);
@@ -2190,28 +1999,29 @@ function update(time, delta) {
         }
     }
     
-    // Check wave complete - only when all enemies have spawned AND been defeated/reached base
+    // Check wave complete
     if (gameState.waveInProgress && 
         gameState.enemiesSpawnedThisWave >= gameState.totalEnemiesToSpawn && 
         gameState.enemies.length === 0) {
-        console.log('Wave complete! All', gameState.totalEnemiesToSpawn, 'enemies spawned and cleared. Re-enabling button');
         gameState.waveInProgress = false;
         
-        // Award 100 gold for completing the wave
-        gameState.gold += 100;
-        console.log('Wave completed! Earned 100 gold. Total:', gameState.gold);
+        let waveBonus = 100;
+        if (gameState.difficulty === 'easy') {
+            waveBonus = 50;
+        } else if (gameState.difficulty === 'normal') {
+            waveBonus = 75;
+        } else {
+            waveBonus = 100;
+        }
+        gameState.gold += waveBonus;
         
         updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
         
-        // Re-enable wave button with green color
         if (this.waveButton && this.waveText) {
-            console.log('Updating button to green and next wave text');
-            this.waveButton.setFillStyle(0x00aa00); // Green
-            this.waveButton.setInteractive({ useHandCursor: true }); // Re-enable clicking
+            this.waveButton.setFillStyle(0x00aa00);
+            this.waveButton.setInteractive({ useHandCursor: true });
             this.waveText.setText('Start Wave ' + (gameState.wave + 1));
-            this.waveText.setColor('#ffffff'); // White text
-        } else {
-            console.error('Wave button/text not found in update!');
+            this.waveText.setColor('#ffffff');
         }
     }
 }
@@ -2227,7 +2037,6 @@ function findEnemyInRange(tower) {
 }
 
 function checkForSupportAura(tower) {
-    // Check if there's a support tower within range of this tower
     for (const supportTower of gameState.towers) {
         if (supportTower.isSupportTower) {
             const dx = tower.x - supportTower.x;
@@ -2243,14 +2052,14 @@ function checkForSupportAura(tower) {
 }
 
 function fireTower(scene, tower, target) {
-    console.log('fireTower called! Tower:', tower.type, 'Target:', target.type, 'Scene:', !!scene);
-
-    // Play fire animation for basic tower
+    console.log('🔫 Firing tower:', tower.type);
+    
+    // ✅ PLAY FIRE ANIMATION FOR BASIC TOWER
     if (tower.type === 'basic' && tower.graphic && tower.graphic.anims) {
         if (scene.anims.exists('tower_basic_shoot')) {
             tower.graphic.play('tower_basic_shoot');
-
-            // Return to idle after fire animation completes
+            
+            // Return to idle after animation
             tower.graphic.once('animationcomplete', () => {
                 if (scene.anims.exists('tower_basic_idle')) {
                     tower.graphic.play('tower_basic_idle');
@@ -2258,32 +2067,26 @@ function fireTower(scene, tower, target) {
             });
         }
     }
-
+    
     const projectile = {
         x: tower.x,
         y: tower.y,
         target: target,
         damage: tower.damage,
-        isAutoFire: !tower.requiresMath && !tower.isSupportTower  // Track if from auto-fire tower
+        isAutoFire: !tower.requiresMath && !tower.isSupportTower
     };
-
-    console.log('Creating projectile graphic at', tower.x, tower.y);
-
-    // Use sprite if available, otherwise fallback to circle
+    
     if (scene.textures.exists('projectile')) {
         projectile.graphic = scene.add.sprite(tower.x, tower.y, 'projectile');
         projectile.graphic.setScale(0.5);
-
-        // Add rotation to face the target
+        
         const angle = Phaser.Math.Angle.Between(tower.x, tower.y, target.x, target.y);
         projectile.graphic.setRotation(angle);
     } else {
-        // Fallback to colored circle
         projectile.graphic = scene.add.circle(tower.x, tower.y, 4, 0xffff00);
     }
-
+    
     gameState.projectiles.push(projectile);
-    console.log('Projectile added. Total projectiles:', gameState.projectiles.length);
 }
 
 function damageEnemy(enemy, damage) {
@@ -2300,8 +2103,7 @@ function damageEnemy(enemy, damage) {
     if (enemy.health <= 0) {
         gameState.gold += enemy.gold;
         gameState.score += enemy.gold * 5;
-        gameState.enemiesDefeated++; // Track defeated enemies
-        console.log('Enemy defeated! Earned', enemy.gold, 'gold. Total:', gameState.gold);
+        gameState.enemiesDefeated++;
         updateHUD(gameState.gold, gameState.health, gameState.wave, gameState.score, gameState.noise);
         
         enemy.graphic.destroy();
